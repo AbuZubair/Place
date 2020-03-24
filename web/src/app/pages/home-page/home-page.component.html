@@ -1,0 +1,79 @@
+<div class="p-20">
+    <span>Select : </span>
+    <ng-select2 
+        [data]="selectData"
+        [placeholder]="placeholder"
+        [width]="200"
+        [(ngModel)]="selected"
+        (valueChanged)="changedSelected($event)"
+        >
+    </ng-select2>
+</div>
+
+<ng-container *ngIf="!not_found">
+
+    <div class="row">
+
+        <ngx-spinner
+        bdOpacity = 0.9
+        bdColor = "#ffffff"
+        size = "medium"
+        color = "#474040"
+        type = "ball-spin"
+        [fullScreen] = "true"
+        >
+        <p style="color: white" > </p>
+        </ngx-spinner>
+
+        <div class="col-md-12">
+            <div class="col-md-3">
+                <ng-select2 
+                    [data]="provinceData"
+                    [placeholder]="'Please select a province'"
+                    [width]="250"
+                    [(ngModel)]="province"
+                    (valueChanged)="changedProvince($event)"
+                    >
+                </ng-select2>
+            </div>
+            <div class="col-md-3" *ngIf="show">
+                <ng-select2 
+                    [data]="cityData"
+                    [placeholder]="'Please select a city'"
+                    [width]="250"
+                    [(ngModel)]="city"
+                    (valueChanged)="changedCity($event)"
+                    >
+                </ng-select2>
+            </div>
+            <div class="col-md-3"></div>
+           
+        </div>
+            
+        <div class="col-md-12" style="margin-top:20px;">
+
+            <table class="table table-striped table-bordered table-sm row-border hover" datatable [dtOptions]="dtOptions"
+  [dtTrigger]="dtTrigger">
+                <thead>
+                  <tr>
+                    <th>{{ selected }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of data">
+                    <td>{{ data.name }}</td>
+                  </tr>
+                  
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</ng-container>
+
+<ng-container *ngIf="not_found">
+    <div class="empty-content">
+        <img src="assets/img/emptydata.jpg" alt="">
+    </div>
+</ng-container>
